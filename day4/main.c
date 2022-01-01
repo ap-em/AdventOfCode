@@ -51,6 +51,7 @@ void printBoard(int boards[5][5])
 		printf("\n");
 	}
 }
+
 int checkBoard(int boards[100][5][5], int val, int *won)
 {
 	int i, j, k, bingo, a, b;
@@ -63,36 +64,19 @@ int checkBoard(int boards[100][5][5], int val, int *won)
 				if (boards[i][j][k] == val)
 				{
 					boards[i][j][k] = -boards[i][j][k];
-					if (boards[i][j][k] == 0) boards[i][j][k] = -99;
-					if (won[i] == 0) {
-						bingo = checkBingo(boards[i]);
-					}
-					
+					if (boards[i][j][k] == 0) boards[i][j][k] = -99; //arbitrary val
+					if (won[i] == 0) bingo = checkBingo(boards[i]);
 					if (bingo)
-					{
-						if (i == 58)
-						{
-							for (a = 0; a < 100; a++)
-							{
-								printf("%d ", won[a]);
-							}
-							printf("\n");
-						}
-
 						printf("FIRST BINGO AT BOARD %d AND VAL %d\n", i, val);
 						won[i] = 1;
-						printBoard(boards[i]);
-						
-						
+						printBoard(boards[i
 					}
 					bingo = 0; //Reset value
 				}
 				//printf("%d ", boards[i][j][k]);
 			}
 			//printf("\n");
-
 		}
-
 	}
 	return bingo;
 }
@@ -105,10 +89,8 @@ int main() {
 		exit (0);
 	}
 
-	int i, j, bingo, val, winCount;
-
+	int i, j, bingo, val;
 	int board[100][5][5];
-
 	int *order = malloc(100*sizeof(int));
 
 	for (i = 0; i < 100; i++)
@@ -116,7 +98,6 @@ int main() {
 		fscanf(myFile, "%d,", &order[i]);
 		printf("Val %d: %d\n", i, order[i]);
 	}
-	
 	// Read + prints 5x5 grids
 	for (i = 0; i < 100; i++) {
 		printf("Board #%d: \n", i);
@@ -126,16 +107,13 @@ int main() {
 			printf("%d %d %d %d %d\n", board[i][j][0], board[i][j][1], board[i][j][2], board[i][j][3], board[i][j][4]);
 		}
 	}
-
-	i = 0, bingo = 0, val = 0, winCount = 0;
+	bingo = 0, val = 0;
 	int *won = malloc(100*sizeof(int));
-	while (i < 100 ) 
+	for (i = 0; i < 100; i++)
 	{
 		// array of won boards
 		val = order[i];
 		bingo = checkBoard(board, val, won);
-
-		i++;
 	}
 
 	fclose(myFile);
