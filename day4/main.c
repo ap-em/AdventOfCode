@@ -67,15 +67,16 @@ int checkBoard(int boards[100][5][5], int val, int *won)
 					if (boards[i][j][k] == 0) boards[i][j][k] = -99; //arbitrary val
 					if (won[i] == 0) bingo = checkBingo(boards[i]);
 					if (bingo)
+					{
 						printf("FIRST BINGO AT BOARD %d AND VAL %d\n", i, val);
 						won[i] = 1;
-						printBoard(boards[i
+						printBoard(boards[i]);
 					}
 					bingo = 0; //Reset value
 				}
 				//printf("%d ", boards[i][j][k]);
 			}
-			//printf("\n");
+		//	printf("\n");
 		}
 	}
 	return bingo;
